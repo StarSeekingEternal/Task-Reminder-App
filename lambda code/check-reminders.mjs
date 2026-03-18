@@ -33,7 +33,7 @@ export const handler = async (event) => {
       const queryCommand = new QueryCommand({
         TableName: TABLE_NAME,
         IndexName: GSI_NAME,
-        KeyConditionExpression: "reminder_bucket = :bucket AND reminderTime <= :now",
+        KeyConditionExpression: "reminderBucket = :bucket AND reminderTime <= :now",
         ExpressionAttributeValues: {
           ":bucket": "reminders",
           ":now": now,
