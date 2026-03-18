@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const timestamp = Math.floor(new Date(time).getTime() / 1000);
+        const timestamp = Math.floor(new Date(reminderTime).getTime() / 1000);
 
         // Prepare payload (you can easily add more fields later)
         const payload = {
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.textContent = 'Saving...';
         
         const serverUrl = "arn:aws:apigateway:us-east-1::/apis/349t6upj4b/routes/z4gg01l";
-        
+
         try {
             const response = await fetch(serverUrl, {
                 method: 'POST',
