@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Saving...';
         
-        const serverUrl = "arn:aws:apigateway:us-east-1::/apis/349t6upj4b/routes/z4gg01l";
+        const serverUrl = "https://349t6upj4b.execute-api.us-east-1.amazonaws.com";
 
         try {
             const response = await fetch(serverUrl, {
