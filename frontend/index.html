@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/main.css" rel="stylesheet" >
+    <script src="js/main.js" defer></script>
+    <title>Task Reminder App</title>
+</head>
+<body>
+    <h1>Task Reminder App</h1>
+    <form id="add-task-form">
+        <h3>Add Task Reminder</h3>
+        <div class="form-group">
+            <label for="title">Task Title: </label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="reminder-time">Reminder Time (Available in 5 minute intervals): </label>
+            <input type="datetime-local" id="reminder-time" name="reminderTime" step="300" required>
+        </div>
+        <button id="task-form-btn">Submit</button>
+    </form>
+    <div id="response"></div>
+</body>
+</html>
