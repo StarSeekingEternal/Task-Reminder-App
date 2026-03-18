@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Saving...';
         
-        const serverUrl = "https://349t6upj4b.execute-api.us-east-1.amazonaws.com";
+        const serverUrl = "https://349t6upj4b.execute-api.us-east-1.amazonaws.com/task-reminder";
 
         try {
             const response = await fetch(serverUrl, {

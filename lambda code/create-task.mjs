@@ -20,7 +20,9 @@ export const handler = async (event) => {
     return {
       statusCode: 400,
       body: JSON.stringify({ error: "Invalid JSON in request body" }),
-      headers: { "Content-Type": "application/json" },
+      headers: { "Access-Control-Allow-Origin": "*", // Required for CORS
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            "Content-Type": "application/json" },
     };
   }
 
@@ -30,7 +32,9 @@ export const handler = async (event) => {
     return {
       statusCode: 400,
       body: JSON.stringify({ error: "Field 'title' is required and must be a non-empty string" }),
-      headers: { "Content-Type": "application/json" },
+      headers: { "Access-Control-Allow-Origin": "*", // Required for CORS
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            "Content-Type": "application/json" },
     };
   }
 
@@ -39,7 +43,9 @@ export const handler = async (event) => {
     return {
       statusCode: 400,
       body: JSON.stringify({ error: "Field 'reminderTime' is required and must be a future timestamp" }),
-      headers: { "Content-Type": "application/json" },
+      headers: { "Access-Control-Allow-Origin": "*", // Required for CORS
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            "Content-Type": "application/json" },
     };
   }
 
@@ -71,6 +77,8 @@ export const handler = async (event) => {
         task: item,
       }),
       headers: {
+        "Access-Control-Allow-Origin": "*", // Required for CORS
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
         "Content-Type": "application/json"
         // "Access-Control-Allow-Origin": "*", // adjust for production!
       },
@@ -84,7 +92,9 @@ export const handler = async (event) => {
         error: "Failed to save task",
         details: error.message || "Internal server error",
       }),
-      headers: { "Content-Type": "application/json" },
+      headers: { "Access-Control-Allow-Origin": "*", // Required for CORS
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            "Content-Type": "application/json" },
     };
   }
 };
