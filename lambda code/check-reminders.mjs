@@ -9,9 +9,9 @@ import { DynamoDBDocumentClient, QueryCommand, UpdateCommand } from "@aws-sdk/li
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 
 // SET REGIONS LATER
-const client = new DynamoDBClient({ region: process.env.AWS_REGION || "ca-central-1" });
+const client = new DynamoDBClient({ region: process.env.AWS_REGION || "us-east-1" });
 const docClient = DynamoDBDocumentClient.from(client);
-const sesClient = new SESClient({ region: process.env.AWS_REGION || "ca-central-1" });
+const sesClient = new SESClient({ region: process.env.AWS_REGION || "us-east-1" });
 
 const TABLE_NAME = process.env.TABLE_NAME || "tasks";
 const GSI_NAME = process.env.GSI_NAME || "RemindersByTime";   // ← You MUST create this GSI

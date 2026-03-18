@@ -6,7 +6,7 @@ import { randomUUID } from "node:crypto";
 
 // Initialize clients (best practice: outside handler)
 // SET REGION LATER
-const client = new DynamoDBClient({ region: process.env.AWS_REGION || "ca-central-1" });
+const client = new DynamoDBClient({ region: process.env.AWS_REGION || "us-east-1" });
 const docClient = DynamoDBDocumentClient.from(client);
 
 const TABLE_NAME = process.env.TABLE_NAME || "tasks"; // Set this in your Lambda environment variables
@@ -50,9 +50,9 @@ export const handler = async (event) => {
     taskId: randomUUID(),                               // primary key (string)
     title: title.trim(),                                // title of task
     reminderTime: reminderTime,                         // time to send reminder
-    reminder_bucket: "reminders",                       // GSI partition key for querying by reminder time
+    reminderBucket: "reminders",                       // GSI partition key for querying by reminder time
     sent: false,                                        // whether reminder has been sent
-    expire_at: reminderTime + 86400                     // Set TTL to 24 hours from reminder time
+    expireAt: reminderTime + 86400                     // Set TTL to 24 hours from reminder time
   };
 
   // ── 3. Save to DynamoDB ─────────────────────────────────────────────
