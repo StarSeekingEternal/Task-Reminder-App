@@ -1,7 +1,5 @@
 // js/main.js
 
-const serverUrl = process.env.SERVER_URL || ''; // Set this in your build environment or .env file
-
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('add-task-form');
     const responseDiv = document.getElementById('response');
@@ -41,7 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         submitBtn.disabled = true;
         submitBtn.textContent = 'Saving...';
-
+        
+        const serverUrl = "arn:aws:apigateway:us-east-1::/apis/349t6upj4b/routes/z4gg01l";
+        
         try {
             const response = await fetch(serverUrl, {
                 method: 'POST',
