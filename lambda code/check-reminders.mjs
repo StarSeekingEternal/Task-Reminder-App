@@ -9,12 +9,12 @@ import { DynamoDBDocumentClient, QueryCommand, UpdateCommand } from "@aws-sdk/li
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 
 // SET REGIONS LATER
-const client = new DynamoDBClient({ region: process.env.AWS_REGION || "us-east-1" });
+const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
-const sesClient = new SESClient({ region: process.env.AWS_REGION || "us-east-1" });
+const sesClient = new SESClient({});
 
 const TABLE_NAME = process.env.TABLE_NAME || "tasks";
-const GSI_NAME = process.env.GSI_NAME || "RemindersByTime";   // ← You MUST create this GSI
+const GSI_NAME = process.env.GSI_NAME || "RemindersByTime";
 // SET EMAILS LATER
 const SENDER_EMAIL = process.env.SENDER_EMAIL;      // Must be verified in SES
 const RECIPIENT_EMAIL = process.env.RECIPIENT_EMAIL;
@@ -42,7 +42,6 @@ export const handler = async (event) => {
         ExpressionAttributeValues: {
           ":false": false,
         },
-        // ProjectionExpression: "taskId, title, reminderTime", // optional for performance
       });
 
       if (lastEvaluatedKey) {

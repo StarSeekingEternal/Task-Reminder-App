@@ -1,5 +1,7 @@
 // js/main.js
 
+const serverUrl = process.env.SERVER_URL || ''; // Set this in your build environment or .env file
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('add-task-form');
     const responseDiv = document.getElementById('response');
@@ -41,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.textContent = 'Saving...';
 
         try {
-            const response = await fetch('https://YOUR-LAMBDA-FUNCTION-URL-HERE', {
+            const response = await fetch('', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -6,7 +6,7 @@ import { randomUUID } from "node:crypto";
 
 // Initialize clients (best practice: outside handler)
 // SET REGION LATER
-const client = new DynamoDBClient({ region: process.env.AWS_REGION || "us-east-1" });
+const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
 
 const TABLE_NAME = process.env.TABLE_NAME || "tasks"; // Set this in your Lambda environment variables
