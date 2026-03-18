@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.textContent = 'Saving...';
 
         try {
-            const response = await fetch('', {
+            const response = await fetch(serverUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
