@@ -25,6 +25,7 @@ export const handler = async (event) => {
   console.log(`Running reminder check at ${new Date().toISOString()}`);
 
   // ── 1. Query GSI for overdue + unsent tasks ───────────────────────
+
   let items = [];
   let lastEvaluatedKey = undefined;
 
@@ -37,11 +38,9 @@ export const handler = async (event) => {
         ExpressionAttributeValues: {
           ":bucket": "reminders",
           ":now": now,
+          ":false": false
         },
-        FilterExpression: "sent = :false",           // only unsent
-        ExpressionAttributeValues: {
-          ":false": false,
-        },
+        FilterExpression: "sent = :false"           // only unsent reminders
       });
 
       if (lastEvaluatedKey) {
@@ -65,6 +64,7 @@ export const handler = async (event) => {
   console.log(`Found ${items.length} overdue reminders`);
 
   // ── 2. Build nice email content ───────────────────────────────────
+
   const reminderListHtml = items
     .map((task) => {
       const dueDate = new Date(task.reminderTime * 1000).toLocaleString("en-CA", {
@@ -92,6 +92,7 @@ export const handler = async (event) => {
     .join("\n");
 
   // ── 3. Send email via SES ─────────────────────────────────────────
+
   try {
     await sesClient.send(
       new SendEmailCommand({
@@ -113,6 +114,7 @@ export const handler = async (event) => {
   }
 
   // ── 4. Mark all tasks as sent ─────────────────────────────────────
+
   let updatedCount = 0;
   const updatePromises = items.map(async (task) => {
     try {
