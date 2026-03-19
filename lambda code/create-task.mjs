@@ -1,18 +1,26 @@
-// index.mjs     ← use ESM syntax (recommended for new Lambda functions)
+/* The create-task Lambda function: receives task details from the frontend,
+   validates and enriches the data, and saves it to DynamoDB.
+*/
 
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { randomUUID } from "node:crypto";
 
 // Initialize clients (best practice: outside handler)
-// SET REGION LATER
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
 
-const TABLE_NAME = process.env.TABLE_NAME || "tasks"; // Set this in your Lambda environment variables
+const TABLE_NAME = process.env.TABLE_NAME || "tasks";
+
+const headers = { "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+            "Content-Type": "application/json" };
 
 export const handler = async (event) => {
+
   // ── 1. Parse incoming payload ──────────────────────────────────────
+
   let body;
   try {
     body = typeof event.body === "string" ? JSON.parse(event.body) : event.body;
@@ -20,9 +28,7 @@ export const handler = async (event) => {
     return {
       statusCode: 400,
       body: JSON.stringify({ error: "Invalid JSON in request body" }),
-      headers: { "Access-Control-Allow-Origin": "*", // Required for CORS
-            "Access-Control-Allow-Methods": "POST, OPTIONS",
-            "Content-Type": "application/json" },
+      headers: headers
     };
   }
 
@@ -32,9 +38,7 @@ export const handler = async (event) => {
     return {
       statusCode: 400,
       body: JSON.stringify({ error: "Field 'title' is required and must be a non-empty string" }),
-      headers: { "Access-Control-Allow-Origin": "*", // Required for CORS
-            "Access-Control-Allow-Methods": "POST, OPTIONS",
-            "Content-Type": "application/json" },
+      headers: headers
     };
   }
 
@@ -43,9 +47,7 @@ export const handler = async (event) => {
     return {
       statusCode: 400,
       body: JSON.stringify({ error: "Field 'reminderTime' is required and must be a future timestamp" }),
-      headers: { "Access-Control-Allow-Origin": "*", // Required for CORS
-            "Access-Control-Allow-Methods": "POST, OPTIONS",
-            "Content-Type": "application/json" },
+      headers: headers
     };
   }
 
@@ -56,12 +58,13 @@ export const handler = async (event) => {
     taskId: randomUUID(),                               // primary key (string)
     title: title.trim(),                                // title of task
     reminderTime: reminderTime,                         // time to send reminder
-    reminderBucket: "reminders",                       // GSI partition key for querying by reminder time
+    reminderBucket: "reminders",                        // GSI partition key for querying by reminder time
     sent: false,                                        // whether reminder has been sent
-    expireAt: reminderTime + 86400                     // Set TTL to 24 hours from reminder time
+    expireAt: reminderTime + 86400                      // Set TTL to 24 hours from reminder time
   };
 
   // ── 3. Save to DynamoDB ─────────────────────────────────────────────
+
   try {
     await docClient.send(
       new PutCommand({
@@ -76,12 +79,7 @@ export const handler = async (event) => {
         message: "Task reminder created successfully",
         task: item,
       }),
-      headers: {
-        "Access-Control-Allow-Origin": "*", // Required for CORS
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Content-Type": "application/json"
-        // "Access-Control-Allow-Origin": "*", // adjust for production!
-      },
+      headers: headers
     };
   } catch (error) {
     console.error("DynamoDB Put failed:", error);
@@ -92,9 +90,7 @@ export const handler = async (event) => {
         error: "Failed to save task",
         details: error.message || "Internal server error",
       }),
-      headers: { "Access-Control-Allow-Origin": "*", // Required for CORS
-            "Access-Control-Allow-Methods": "POST, OPTIONS",
-            "Content-Type": "application/json" },
+      headers: headers
     };
   }
 };

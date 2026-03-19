@@ -1,4 +1,4 @@
-// js/main.js
+// main.js
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('add-task-form');
@@ -45,14 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch(serverUrl, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // If using IAM auth → you would need AWS SigV4 signing here (more complex)
-                    // If using NO auth or CUSTOM auth → add Authorization header if needed
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
-                // mode: 'cors',                    // usually not needed for same-origin or function URL
-                // credentials: 'omit'              // default is fine
             });
 
             let result;
