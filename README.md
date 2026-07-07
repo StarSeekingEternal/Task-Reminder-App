@@ -8,8 +8,7 @@ Built using AWS services including Lambda, API Gateway, DynamoDB, EventBridge, S
 
 <img width="1917" height="1017" alt="image" src="https://github.com/user-attachments/assets/4ff449cb-5e31-4e3b-b870-cf392ca82b1b" />
 
-
-
+<img width="497" height="317" alt="image" src="https://github.com/user-attachments/assets/845fff9b-8496-4e14-afaa-3691262c3fbb" />
 
 ---
 
