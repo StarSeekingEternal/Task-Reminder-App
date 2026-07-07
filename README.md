@@ -1,5 +1,7 @@
 # AWS Task Reminder Web App
 
+(No Longer Deployed)
+
 A serverless web application that allows users to schedule email reminders for future tasks.
 
 Built using AWS services including Lambda, API Gateway, DynamoDB, EventBridge, SES, and Amplify.
