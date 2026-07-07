@@ -39,7 +39,7 @@ The application uses a fully serverless architecture, eliminating the need to ma
 
 ## Architecture
 
-<img width="1210" height="818" alt="image" src="https://github.com/user-attachments/assets/7c5a9723-1c3a-49a8-a3bf-fa22ca789205" />
+<img width="1248" height="832" alt="GJbzJ" src="https://github.com/user-attachments/assets/66e543e7-91a3-4753-a9a6-7101ae659e2a" />
 
 ## AWS Services Used
 
