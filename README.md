@@ -39,38 +39,7 @@ The application uses a fully serverless architecture, eliminating the need to ma
 
 ## Architecture
 
-+-------------+
-|   Amplify   |
-+-------------+
-       |
-       v
-+-------------+
-| API Gateway |
-+-------------+
-       |
-       v
-+-------------+
-|   Lambda    |
-| createTask  |
-+-------------+
-       |
-       v
-+-------------+
-| DynamoDB    |
-+-------------+
-
-EventBridge (hourly)
-       |
-       v
-+-------------+
-|   Lambda    |
-|checkReminder|
-+-------------+
-       |
-       v
-+-------------+
-| Amazon SES  |
-+-------------+
+<img width="1210" height="818" alt="image" src="https://github.com/user-attachments/assets/7c5a9723-1c3a-49a8-a3bf-fa22ca789205" />
 
 ## AWS Services Used
 
@@ -105,7 +74,6 @@ Example item:
 {
   "taskId": "123",
   "expireAt": "1783544400",
-  "taskName": "Complete assignment",
   "reminderTime": "1783458000",
   "reminderBucket": "reminders",
   "sent": "false",
@@ -140,8 +108,8 @@ Table Name: tasks
 
 GSI:
 - Index name: reminder-index
-- Partition key: reminder_bucket (All entries will be "reminders")
-- Sort key: reminder_timestamp
+- Partition key: reminderBucket (All entries will be "reminders")
+- Sort key: reminderTimestamp
 
 This index allows efficient retrieval of reminders that are due within a specific time window.
 
