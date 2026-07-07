@@ -2,6 +2,7 @@ Table Name: tasks
 
 Table Struct:
     task_id (String) (Partition key)
+    task_name
     reminder_timestamp
     reminder_bucket
     sent
