@@ -1,16 +1,16 @@
 Table Name: tasks
 
 Table Struct:
-    task_id (String) (Partition key)
-    task_name
-    reminder_timestamp
-    reminder_bucket
+    taskId (String) (Partition key)
+    title
+    reminderTime
+    reminderBucket
     sent
-    expire_at
+    expireAt
 
 Global Secondary Index (GSI):
     Index name: reminder-index
-    Partition key: reminder_bucket (All entries will be "reminders")
-    Sort key: reminder_timestamp
+    Partition key: reminderBucket (All entries will be "reminders")
+    Sort key: reminderTimestamp
 
 Enable TTL
